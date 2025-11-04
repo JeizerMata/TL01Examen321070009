@@ -97,7 +97,7 @@
                 android:id="@+id/editTextNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ingrese el nombre completo"
+                android:hint="Nombre y apellido"
                 android:textColorHint="#9E9E9E"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/dark_input"

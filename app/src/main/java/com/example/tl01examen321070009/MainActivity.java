@@ -3,6 +3,8 @@ package com.example.tl01examen321070009;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnSeleccionarImagen = findViewById(R.id.btnSeleccionarImagen);
         Button btnVerContactos = findViewById(R.id.btnVerContactos);
 
-        // --- 📍 Llenar Spinner con solo 6 países y sus códigos ---
+        // --- 📍 Llenar Spinner con países ---
         String[] paises = new String[]{
                 "Seleccionar país",
                 "🇭🇳 Honduras (+504)",
@@ -59,7 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 "🇸🇻 El Salvador (+503)",
                 "🇳🇮 Nicaragua (+505)",
                 "🇨🇷 Costa Rica (+506)",
-                "🇲🇽 México (+52)"
+                "🇲🇽 México (+52)",
+                "🇺🇸 Estados Unidos (+1)",
+                "🇵🇦 Panamá (+507)",
+                "🇧🇿 Belice (+501)",
+                "🇪🇸 España (+34)"
         };
 
         ArrayAdapter<String> adapterPaises = new ArrayAdapter<>(
@@ -70,38 +76,49 @@ public class MainActivity extends AppCompatActivity {
         adapterPaises.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPais.setAdapter(adapterPaises);
 
-        // --- 📞 Cambiar automáticamente el prefijo del teléfono según país ---
+        // --- 📞 Prefijo del país (no editable) ---
+        final String[] prefijoActual = {""};
+
         spinnerPais.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
                 switch (position) {
-                    case 1: // Honduras
-                        editTelefono.setText("+504 ");
-                        break;
-                    case 2: // Guatemala
-                        editTelefono.setText("+502 ");
-                        break;
-                    case 3: // El Salvador
-                        editTelefono.setText("+503 ");
-                        break;
-                    case 4: // Nicaragua
-                        editTelefono.setText("+505 ");
-                        break;
-                    case 5: // Costa Rica
-                        editTelefono.setText("+506 ");
-                        break;
-                    case 6: // México
-                        editTelefono.setText("+52 ");
-                        break;
-                    default:
-                        editTelefono.setText("");
-                        break;
+                    case 1: prefijoActual[0] = "+504 "; break; // Honduras
+                    case 2: prefijoActual[0] = "+502 "; break; // Guatemala
+                    case 3: prefijoActual[0] = "+503 "; break; // El Salvador
+                    case 4: prefijoActual[0] = "+505 "; break; // Nicaragua
+                    case 5: prefijoActual[0] = "+506 "; break; // Costa Rica
+                    case 6: prefijoActual[0] = "+52 ";  break; // México
+                    case 7: prefijoActual[0] = "+1 ";   break; // USA
+                    case 8: prefijoActual[0] = "+507 "; break; // Panamá
+                    case 9: prefijoActual[0] = "+501 "; break; // Belice
+                    case 10: prefijoActual[0] = "+34 "; break; // España
+                    default: prefijoActual[0] = "";
                 }
-                editTelefono.setSelection(editTelefono.getText().length()); // mueve el cursor al final
+
+                editTelefono.setText(prefijoActual[0]);
+                editTelefono.setSelection(editTelefono.getText().length());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // 🧩 Evitar borrar el prefijo
+        editTelefono.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!prefijoActual[0].isEmpty() && !s.toString().startsWith(prefijoActual[0])) {
+                    editTelefono.setText(prefijoActual[0]);
+                    editTelefono.setSelection(editTelefono.getText().length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
         });
 
         // --- Abrir galería ---
@@ -139,8 +156,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "⚠️ Debe escribir un nombre", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (telefono.isEmpty()) {
-                Toast.makeText(this, "⚠️ Debe escribir un teléfono", Toast.LENGTH_SHORT).show();
+            // --- Validar teléfono ---
+            if (telefono.isEmpty() || telefono.length() < (prefijoActual[0].length() + 4)) {
+                Toast.makeText(this, "⚠️ Debe ingresar un número de teléfono válido", Toast.LENGTH_SHORT).show();
+                editTelefono.requestFocus();
                 return;
             }
             if (nota.isEmpty()) {
@@ -151,12 +170,10 @@ public class MainActivity extends AppCompatActivity {
             String imagePath = (imageUriSeleccionada != null) ? imageUriSeleccionada.toString() : "foto_default";
 
             if (contactoEditarId == -1) {
-                // Nuevo contacto
                 Contact contact = new Contact(pais, nombre, telefono, nota, imagePath);
                 dbHelper.addContact(contact);
                 Toast.makeText(this, "✅ Contacto guardado correctamente", Toast.LENGTH_SHORT).show();
             } else {
-                // Actualizar contacto existente
                 Contact contact = new Contact(contactoEditarId, pais, nombre, telefono, nota, imagePath);
                 dbHelper.updateContact(contact);
                 Toast.makeText(this, "✅ Contacto actualizado correctamente", Toast.LENGTH_SHORT).show();
