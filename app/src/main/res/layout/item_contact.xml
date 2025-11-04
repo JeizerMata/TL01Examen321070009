@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:gravity="center_vertical"
+    android:background="#1E1E1E"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:minHeight="72dp"
+    android:descendantFocusability="blocksDescendants">
+
+    <!-- Imagen del contacto -->
+    <ImageView
+        android:id="@+id/imgContact"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="12dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/dark_image_border"
+        android:contentDescription="Foto del contacto"
+        android:clipToOutline="true" />
+
+    <!-- Datos del contacto -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/txtPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Teléfono"
+            android:textSize="14sp"
+            android:textColor="#BDBDBD" />
+    </LinearLayout>
+
+    <!-- Botón Llamar -->
+    <ImageButton
+        android:id="@+id/btnLlamar"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:padding="8dp"
+        android:layout_marginStart="8dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Llamar"
+        android:src="@android:drawable/ic_menu_call"
+        app:tint="#43A047"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+</LinearLayout>
+
+

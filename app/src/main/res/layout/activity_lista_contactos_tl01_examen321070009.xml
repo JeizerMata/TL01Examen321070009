@@ -1,94 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#121212"
+    android:paddingVertical="12dp"
+    android:paddingHorizontal="20dp"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
     tools:context=".ListaContactosTL01Examen321070009">
 
+    <!-- 🔙 Botón Atrás -->
     <Button
         android:id="@+id/btnAtras"
-        android:layout_width="83dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="190dp"
-        android:backgroundTint="#666666"
-        android:text="Atras"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.218"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="56dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="← Atrás"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:backgroundTint="#2E7D32"
+        android:paddingHorizontal="16dp"
+        android:textSize="14sp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="10dp" />
 
-    <Button
-        android:id="@+id/btnCompartir"
-        android:layout_width="144dp"
-        android:layout_height="50dp"
-        android:backgroundTint="#26638E"
-        android:text="Compartir"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="606dp" />
+    <!-- 🔍 Barra de búsqueda -->
+    <EditText
+        android:id="@+id/editBuscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Buscar contacto..."
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#9E9E9E"
+        android:background="@drawable/dark_input"
+        android:padding="12dp"
+        android:layout_marginBottom="10dp" />
 
-    <Button
-        android:id="@+id/btnImagen"
-        android:layout_width="144dp"
-        android:layout_height="50dp"
-        android:backgroundTint="#286997"
-        android:text="Ver imagen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="606dp" />
+    <!-- 📋 Lista de contactos -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="6dp"
+        android:background="#1E1E1E"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:clipToPadding="false">
 
-    <Button
-        android:id="@+id/btnActualizar"
-        android:layout_width="144dp"
-        android:layout_height="50dp"
-        android:backgroundTint="#26638E"
-        android:text="Actualizar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="656dp" />
+        <ListView
+            android:id="@+id/listViewContactos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#303030"
+            android:dividerHeight="1dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:clipToPadding="false"
+            android:padding="4dp" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnEliminar"
-        android:layout_width="144dp"
-        android:layout_height="50dp"
-        android:backgroundTint="#26638E"
-        android:text="Eliminar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="656dp" />
+    <!-- 🧭 Botones fila 1 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2"
+        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="8dp"> <!-- ✅ margen lateral agregado -->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecContactos"
-        android:layout_width="335dp"
-        android:layout_height="400dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.595" />
+        <Button
+            android:id="@+id/btnCompartir"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Compartir"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#1565C0"
+            android:layout_marginEnd="6dp"
+            android:textSize="14sp"
+            android:elevation="2dp" />
 
-    <SearchView
-        android:id="@+id/SeaContactos"
-        android:layout_width="336dp"
-        android:layout_height="45dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="145dp" />
+        <Button
+            android:id="@+id/btnVerImagen"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Ver imagen"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#00897B"
+            android:layout_marginStart="6dp"
+            android:textSize="14sp"
+            android:elevation="2dp" />
+    </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="201dp"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.819"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="32dp" />
+    <!-- 🧭 Botones fila 2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2"
+        android:layout_marginHorizontal="8dp"> <!-- ✅ margen lateral agregado -->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Eliminar"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#C62828"
+            android:layout_marginEnd="6dp"
+            android:textSize="14sp"
+            android:elevation="2dp" />
+
+        <Button
+            android:id="@+id/btnEditar"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Editar"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#9C27B0"
+            android:layout_marginStart="6dp"
+            android:textSize="14sp"
+            android:elevation="2dp" />
+    </LinearLayout>
+
+    <!-- 🧩 Espacio seguro final -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+</LinearLayout>

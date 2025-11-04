@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 📞 Permiso para realizar llamadas telefónicas -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,21 +14,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TL01Examen321070009">
+
+        <!-- 🧭 Pantalla de llamada -->
         <activity
             android:name=".LlamadaTL01Examen321070009"
             android:exported="false" />
+
+        <!-- 📋 Lista de contactos -->
         <activity
             android:name=".ListaContactosTL01Examen321070009"
             android:exported="false" />
+
+        <!-- 🏠 Pantalla principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
